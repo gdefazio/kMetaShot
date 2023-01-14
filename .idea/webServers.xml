@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="820d42c6-692d-4261-aab3-e1697c4f8e74" name="srv04_home3">
+        <fileTransfer rootFolder="/home3/gdefazio" accessType="SFTP" host="srv04.recas.ba.infn.it" port="22" sshConfigId="3bcf163c-edc5-4144-9c97-303c37caaff3" sshConfig="gdefazio@srv04.recas.ba.infn.it:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
