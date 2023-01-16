@@ -185,7 +185,9 @@ def input_prepare(bins: str) -> list:
                     dst.close()
                 c = 1
                 pathname = os.path.join(out_dir, 'tmp', "%s.fa.gz" %
-                                        line[1:-1].replace(',', '').replace(' ', '_'))
+                                        line[1:-1].replace(
+                                            ',', '').replace(
+                                            ' ', '_').replace('/', '_'))
                 todo.append(pathname)
                 dst = gzopen(pathname, 'wt')
                 dst.write(line)
