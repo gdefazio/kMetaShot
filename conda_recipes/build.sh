@@ -1,0 +1,1 @@
+$PYTHON ~/Documenti/tesi_dottorale/kMetaShot/setup.py install
