@@ -3,8 +3,8 @@ package:
   version: "1.0"
 
 source:
-  # git_rev:
-  path: /home/giuseppedefazio/Documenti/tesi_dottorale/kMetaShot/
+   git_url: https://github.com/gdefazio/kMetaShot
+#  path: /home/giuseppedefazio/Documenti/tesi_dottorale/kMetaShot/
 
 build:
   number: 0
@@ -12,19 +12,11 @@ build:
   preserve_egg_dir: True
 
 requirements:
-  build:
+  host:
     - python ==3.7
     - setuptools
-    - numpy ==1.18.1
-    - numba ==0.51.2
-    - wget
-    - pandas ==1.0.4
-    - mmh3
-    - bitarray ==1.2.1
-    - h5py ==2.9.0
-    - hdf5 ==1.10.4
-    - argcomplete ==1.11.1
-
+  build:
+    - python ==3.7
   run:
     - python ==3.7
     - numpy ==1.18.1
@@ -65,8 +57,7 @@ requirements:
 
 test:
   command:
-    - test.py
+    - kMetaShot_test.py
 
-about:
-  home: https://github.com/gdefazio/kMetaShot
+
 
