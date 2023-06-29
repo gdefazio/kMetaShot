@@ -4,7 +4,7 @@ setup(
     name='kmetashot',
     version='1.0',
     scripts=['/home/giuseppedefazio/Documenti/tesi_dottorale/kMetaShot/kMetaShot_classifier_NV.py',
-             '/home/giuseppedefazio/Documenti/tesi_dottorale/kMetaShot/test/test.py'],
+             '/home/giuseppedefazio/Documenti/tesi_dottorale/kMetaShot/test/kMetaShot_test.py'],
     packages=['kMetaShot_package'],
     install_requires=['numpy==1.18.1',
                       'numba==0.51.2',
