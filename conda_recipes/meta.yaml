@@ -3,8 +3,8 @@ package:
   version: "1.0"
 
 source:
-   git_url: https://github.com/gdefazio/kMetaShot
-#  path: /home/giuseppedefazio/Documenti/tesi_dottorale/kMetaShot/
+#   git_url: https://github.com/gdefazio/kMetaShot
+  path: /home/giuseppedefazio/Documenti/tesi_dottorale/kMetaShot/
 
 build:
   number: 0
