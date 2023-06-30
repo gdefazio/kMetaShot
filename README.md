@@ -9,4 +9,18 @@ kMetaShot_classifier_NV.py
                 -r kMetaShot_reference/kMetaShot_bacteria_archaea.h5',
                 -p 10
                 -o output_dir
+                
+Arguments:
+  -h, --help            show this help message and exit
+  -b , --bins_dir (char)
+                        Path to a directory containing bins fasta files or 
+                        path to a multi-fasta file where each header corresponds
+                        to a bin/MAG
+  -r , --reference (char)
+                        Path to HDF5 kMetaShot reference
+  -p , --processes (int)
+                        Number of child processes for a Multiprocess parallelism. 
+                        Warning: high parallelism <==> high RAM usage
+  -o , --out_dir (char)
+                        Output directory
 ```
