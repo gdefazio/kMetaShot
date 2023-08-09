@@ -1,8 +1,25 @@
-# kMetaShot
+kMetaShot
+=========
 
-The application of 2nd and 3rd generation High Throughput Sequencing (HTS) technologies has deeply reshaped experimental method to investigate microbial communities and obtain a compositional landscape. Shotgun Metagenomics allow to quickly obtain a representation of microorganisms genomes characterizing a particular environment. Then, in order to obtain a fast e reliable taxonomic classification of microorganisms genomes we present kMetaShot, an alignment-free taxonomic classifier based on k-mer/minimizer counting.
+[1 Install](#install)
+[2 Usage(#usage
 
-### USAGE
+The application of 2nd and 3rd generation High Throughput Sequencing (HTS) technologies has deeply reshaped experimental method to investigate microbial communities and obtain a taxonomic and functional profile of the invetigated community. Shotgun Metagenomics allow to quickly obtain a representation of microorganisms genomes characterizing a particular environment. 
+In order to obtain a fast e reliable taxonomic classification of microorganisms genomes we present **kMetaShot**, an alignment-free taxonomic classifier based on k-mer/minimizer counting.
+
+# INSTALL
+kMetaShot is avaialbel through **conda**. To install it type the following line:  
+```
+ conda create —name kmetashot kmetashot -c conda-forge -c mtangaro
+```
+To activate the environment:
+```
+conda activate kmetashot.
+```
+
+kMetaShot requires a reference file available at this [link](http://srv00.recas.ba.infn.it/webshare/brunofosso/kMetaShot_reference.h5). It requires about 22Gb of storage.
+
+# USAGE
 ```
 kMetaShot_classifier_NV.py 
                 -b bins/
