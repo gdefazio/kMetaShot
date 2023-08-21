@@ -12,13 +12,13 @@ The application of 2nd and 3rd generation High Throughput Sequencing (HTS) techn
 In order to obtain a fast e reliable taxonomic classification of microorganisms genomes we present **kMetaShot**, an alignment-free taxonomic classifier based on k-mer/minimizer counting.
 
 # INSTALL
-kMetaShot is avaialbel through **conda**. To install it type the following line:  
+kMetaShot is available through **conda**. To install it type the following line:  
 ```
  conda create —name kmetashot kmetashot -c conda-forge -c mtangaro
 ```
 To activate the environment:
 ```
-conda activate kmetashot.
+conda activate kmetashot
 ```
 
 kMetaShot requires a reference file available at this [link](http://srv00.recas.ba.infn.it/webshare/brunofosso/kMetaShot_reference.h5). It requires about 22Gb of storage.  
