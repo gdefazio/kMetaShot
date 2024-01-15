@@ -255,8 +255,9 @@ if __name__ == '__main__':
     nonzero = nonzero.merge(upper, on='genus')
     classific = pd.concat([nonzero, zero], axis=0)
     # 1883 specific filter
-    classific[(classific.genus == 1883) & (classific.ass2ref < 0.01)][[
-        'ass2ref', 'taxid', 'species', 'genus','family', 'order', 'class', 'phylum']] = 0
+    classific.loc[(classific.genus == 1883) & (classific.ass2ref < 0.01), [
+        'ass2ref', 'taxid', 'species', 'genus','family', 'order', 'class',
+        'phylum', 'superkingdom']] = 0
     classific.to_csv(os.path.join(out_dir, 'kMetaShot_classification_resume.csv'))
     return_time('Assignment of bins sequences DONE')
     syexit()
