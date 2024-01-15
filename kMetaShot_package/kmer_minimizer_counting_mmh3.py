@@ -149,11 +149,13 @@ class FastaReference(SequenceFile):
                 else:
                     # print(seq)
                     sequence = b''.join(sequence)
+                    sequence = sequence.upper()
                     for s in re.split(b'[RYSWKMBDHVN]', sequence):
                         # print(s)
                         self.sequences.append(self.convert(s))
                     sequence = list()
             sequence = b''.join(sequence)
+            sequence = sequence.upper()
             for s in re.split(b'[RYSWKMBDHVN]', sequence):
                 # print(s)
                 self.sequences.append(self.convert(s))
@@ -171,12 +173,14 @@ class FastaReference(SequenceFile):
                     sequence.append(seq.strip())
                 else:
                     sequence = b''.join(sequence)
+                    sequence = sequence.upper()
                     for s in re.split(b'[RYSWKMBDHVN]', sequence):
                         # print(s)
                         self.sequences.append(self.convert(s))
                         self.sequences.append(self.convert(complrev(s)))
                     sequence = list()
             sequence = b''.join(sequence)
+            sequence = sequence.upper()
             for s in re.split(b'[RYSWKMBDHVN]', sequence):
                 # print(s)
                 self.sequences.append(self.convert(s))
