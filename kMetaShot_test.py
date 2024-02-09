@@ -48,5 +48,9 @@ if __name__ == '__main__':
     contigs_test = pd.read_csv('./contigs_test/kMetaShot_classification_resume.csv', index_col=0)
     if contigs_test[contigs_test['bin'] == 'NZ_JAFFZS010000001.1_Streptomyces_actuosus_strain_VRA1_NODE_1_whole_genome_shotgun_sequence.fa.gz'].taxid.iloc[0] == 1885:
         print('Contigs test 1/2 ... OK')
+    else:
+        print('Contigs test 1/2 ... FAILED')
     if contigs_test[contigs_test['bin'] == 'NZ_JAFFZS010000111.1_Streptomyces_actuosus_strain_VRA1_NODE_111_whole_genome_shotgun_sequence.fa.gz'].taxid.iloc[0] == 1885:
+        print('Contigs test 2/2 ... FAILED')
+    else:
         print('Contigs test 2/2 ... OK')
