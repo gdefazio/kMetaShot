@@ -38,6 +38,7 @@ kMetaShot_classifier_NV.py
                 -r kMetaShot_reference/kMetaShot_bacteria_archaea.h5',
                 -p 10
                 -o output_dir
+                -a 0.1
                 
 Arguments:
   -h, --help            show this help message and exit
@@ -52,4 +53,7 @@ Arguments:
                         Warning: high parallelism <==> high RAM usage
   -o , --out_dir (char)
                         Output directory
+  -a , --ass2ref (float)
+                        Classification filtering based on ass2ref parameter ranging
+                        between 0 and 1. Default 0.
 ```
