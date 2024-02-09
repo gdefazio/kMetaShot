@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import random
 import h5py
 import argparse
 import warnings
@@ -24,10 +25,10 @@ def split_options():
                         help="Path to HDF5 file containing reference",
                         action="store", required=True,
                         default=None)
-    # parser.add_argument("-y", "--resume_only",
-    #                     help="Formulate the resume of bins assignments",
-    #                     action="store_true", required=False,
-    #                     default=False)
+    parser.add_argument("-a", "--ass2ref",
+                        help="Classification filtering based on ass2ref parameter ranging between 0 and 1. Default 0.",
+                        action="store", required=False, type=float,
+                        default=0)
     parser.add_argument("-p", "--processes", type=int,
                         help="Multiprocess parallelism. Warning: high parallelism <==> high RAM usage",
                         action="store", required=True,
@@ -78,18 +79,28 @@ def adjust_assignmentDF(assignmentDF: pd.DataFrame):
     return md
 
 
-def assignment_algo(md: pd.DataFrame):
+def assignment_algo(md: pd.DataFrame, out_path: str):
     """
     It is the kMetaShot classification algorithm
     :param md: table resuming number of minimizers of each taxon in q-sequence
     :return: genus, species, strain, ass2ref
     """
+    paths = md[md['taxid'] != 0][md.columns[:-1]].drop_duplicates()
+    all_ass2ref = pd.DataFrame(md['taxid'].value_counts())
+    all_ass2ref.columns = ['count']
+    all_ass2ref['taxid'] = all_ass2ref.index
+    all_ass2ref.reset_index(inplace=True, drop=True)
+    all_ass2ref = all_ass2ref.merge(count2taxidref, on='taxid', how='left')
+    all_ass2ref = all_ass2ref.merge(paths, on='taxid', how='left')
+    all_ass2ref['ratio'] = all_ass2ref['count_x']/all_ass2ref['count_y']
+    all_ass2ref.to_csv(os.path.join(out_path, 'all_ass2ref.csv'))
     try:
         max_gs = md['genus'].value_counts().index[0]
     except IndexError:
         return 0, 0, 0, 0
     try:
-        max_sp = md[(md.genus == max_gs) & (md.species != 0)]['species'].value_counts().index[0]
+        max_sp = md[(md.genus == max_gs) & (
+                md.species != 0)]['species'].value_counts().index[0]
     except IndexError:
         # print(md['genus'].value_counts())
         # print(md['species'].value_counts())
@@ -103,6 +114,7 @@ def assignment_algo(md: pd.DataFrame):
     ass_taxids.reset_index(drop=True, inplace=True)
     ass2ref = ass_taxids.merge(ref_taxids, on= 'taxid')
     ass2ref['ratio'] = ass2ref['count_x']/ass2ref['count_y']
+    ass2ref.to_csv(os.path.join(out_path, 'ass2ref.csv'))
     # print(ass_taxids, ref_taxids)
     try:
         strain = ass2ref[ass2ref['ratio'] == ass2ref['ratio'].max()]['taxid'].iloc[0]
@@ -120,15 +132,18 @@ def reference_importer():
     :return: kMetaShot reference
     """
     # sostituisci taxid a newtaxid per riadeguare
-    ranks = ['newtaxid', 'species', 'genus', 'family', 'order', 'class', 'phylum', 'superkingdom']
+    ranks = ['newtaxid', 'species', 'genus', 'family', 'order',
+             'class', 'phylum', 'superkingdom','organism_name']
     assum = pd.read_hdf(reference_path, mode='r', key='new_assemblysummary')
     assum = assum[ranks]
-    assum.columns = ['taxid', 'species', 'genus', 'family', 'order', 'class', 'phylum', 'superkingdom']
+    assum.columns = ['taxid', 'species', 'genus', 'family',
+                     'order', 'class', 'phylum', 'superkingdom',
+                     'organism_name']
     assum.drop_duplicates(inplace=True)
     return_time('Reference loading ...')
     reference = h5py.File(reference_path, 'r')
     taxid = reference['taxid'][...]
-    count2taxidref = pd.read_hdf(reference_path, mode='r', key='count2taxidref',)
+    count2taxidref = pd.read_hdf(reference_path, mode='r', key='count2taxidref')
     return_time('Reference loading DONE')
     reference.close()
     return taxid, assum, count2taxidref
@@ -153,7 +168,7 @@ def single_thread_main(path: str):
     kmer_df = pd.DataFrame(data=assn, columns=['kmer','taxid'])
     adj = adjust_assignmentDF(kmer_df)
     adj.to_csv(os.path.join(bin_out_path, 'kmer2path.csv'),index=False)
-    genus, species, strain, ass2ref = assignment_algo(adj)
+    genus, species, strain, ass2ref = assignment_algo(adj, bin_out_path)
     return_time('STOP %s' % path)
     return path.split('/')[-1], genus, species, strain, ass2ref
 
@@ -209,6 +224,17 @@ def input_prepare(bins: str) -> list:
                         todo.append(pth)
     return todo
 
+def final_table_form(classification: pd.DataFrame, assum: pd.DataFrame) -> pd.DataFrame:
+    classification['organism_name'] = classification['taxid'].apply(
+        lambda x: assum.loc[assum['taxid'] == x, 'organism_name'].iloc[0] if x != 0 else
+        '-')
+    gename = classification.loc[(classification['taxid'] == 0) & (
+            classification['genus'] != 0), 'genus'].apply(
+        lambda x: assum.loc[assum['genus'] == x, 'organism_name'].iloc[0].split(' ')[0])
+    classification.loc[(classification['taxid'] == 0) & (
+            classification['genus'] != 0), 'organism_name'] = gename
+    return classification
+
 
 if __name__ == '__main__':
     print("")
@@ -224,40 +250,72 @@ if __name__ == '__main__':
     bins = arguments.bins_dir
     out_dir = arguments.out_dir
     processes = arguments.processes
+    ass2ref_filter = arguments.ass2ref
     kmer_len = 61
     minimizer_len = 31
     print(arguments)
     out_dir_deep = os.path.join(out_dir, 'bins')
+    out_file = os.path.join(out_dir, 'kMetaShot_classification_resume.csv')
     try:
         os.makedirs(out_dir_deep)
     except FileExistsError:
         print("The %s already exists" % out_dir_deep)
     taxid, assum, count2taxidref = reference_importer()
-    todo = input_prepare(bins)
-    with mp.Pool(processes=processes) as pcs:
-        err = pcs.map(single_thread_main,
-                      iterable=todo,
-                      chunksize=len(todo)//processes)
-    pcs.join()
-    pcs.close()
-    # print(err)
-    upper = assum[['genus', 'family', 'order', 'class', 'phylum', 'superkingdom']].drop_duplicates()
-    assignment = pd.DataFrame(err, columns=['path', 'genus', 'species', 'strain', 'ass2ref'])
-    assignment = assignment[['path', 'ass2ref', 'strain', 'species', 'genus']]
-    assignment.columns = ['bin', 'ass2ref', 'taxid', 'species', 'genus']
-    zero = assignment[assignment.genus == 0]
-    zero['family'] = 0
-    zero['order'] = 0
-    zero['class'] = 0
-    zero['phylum'] = 0
-    zero['superkingdom'] = 0
-    nonzero = assignment[assignment.genus != 0]
-    nonzero = nonzero.merge(upper, on='genus')
-    classific = pd.concat([nonzero, zero], axis=0)
-    # 1883 specific filter
-    classific.loc[(classific.genus == 1883) & (classific.ass2ref < 0.01), [
-        'ass2ref', 'taxid', 'species', 'genus','family', 'order', 'class',
-        'phylum', 'superkingdom']] = 0
-    classific.to_csv(os.path.join(out_dir, 'kMetaShot_classification_resume.csv'))
+    if os.path.exists(out_file):
+        if ass2ref_filter != 0:
+            classific = pd.read_csv(out_file, index_col=0)
+            classific.loc[(classific.genus == 1883) & (classific.ass2ref < 0.01), [
+                'ass2ref', 'taxid', 'species', 'genus', 'family', 'order', 'class',
+                'phylum', 'superkingdom']] = 0
+            classific.loc[classific.ass2ref < ass2ref_filter, [
+                'ass2ref', 'taxid', 'species']] = 0
+            classific = final_table_form(classific, assum)
+            classific.to_csv(os.path.join(out_dir,
+                                          'kMetaShot_classification_resume_a2r%s.csv' %
+                                          round(ass2ref_filter * 100)))
+            return_time('Assignment DONE with %s ass2ref flter' % ass2ref_filter)
+        else:
+            return_time('Assignment already DONE...exit')
+        syexit()
+    else:
+
+        todo = input_prepare(bins)
+        random.shuffle(todo)
+        with mp.Pool(processes=processes, maxtasksperchild=1) as pcs:
+            err = pcs.map(single_thread_main,
+                          iterable=todo,
+                          chunksize=len(todo)//processes)
+        pcs.join()
+        pcs.close()
+        # print(err)
+        upper = assum[['genus', 'family', 'order', 'class', 'phylum',
+                       'superkingdom']].drop_duplicates()
+        assignment = pd.DataFrame(err, columns=['path', 'genus', 'species', 'strain', 'ass2ref'])
+        assignment = assignment[['path', 'ass2ref', 'strain', 'species', 'genus']]
+        assignment.columns = ['bin', 'ass2ref', 'taxid', 'species', 'genus']
+        zero = assignment[assignment.genus == 0]
+        zero['family'] = 0
+        zero['order'] = 0
+        zero['class'] = 0
+        zero['phylum'] = 0
+        zero['superkingdom'] = 0
+        nonzero = assignment[assignment.genus != 0]
+        nonzero = nonzero.merge(upper, on='genus')
+        classific = pd.concat([nonzero, zero], axis=0)
+        # 1883 specific filter
+        classific.loc[(classific.genus == 1883) & (classific.ass2ref < 0.01), [
+            'ass2ref', 'taxid', 'species', 'genus','family', 'order', 'class',
+            'phylum', 'superkingdom']] = 0
+        general_classific = final_table_form(classific, assum)
+        general_classific.to_csv(out_file)
+
+        if ass2ref_filter > 0:
+            classific.loc[classific.ass2ref < ass2ref_filter, [
+                'ass2ref', 'taxid', 'species']] = 0
+            classific = final_table_form(classific, assum)
+
+            classific.to_csv(os.path.join(out_dir,
+                                          'kMetaShot_classification_resume_a2r%s.csv' %
+                                          round(ass2ref_filter * 100)))
     return_time('Assignment of bins sequences DONE')
     syexit()

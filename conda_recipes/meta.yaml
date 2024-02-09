@@ -4,9 +4,11 @@ package:
 
 source:
 #   git_url: https://github.com/gdefazio/kMetaShot
-  path: /home/giuseppedefazio/Documenti/tesi_dottorale/kMetaShot/
+  path: /home/giuseppedefazio/Documenti/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot
 
 build:
+  script: python /home/giuseppedefazio/Documenti/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot/conda_recipes/setup.py install
+#  script: python -m pip install --no-deps --ignore-installed /home/giuseppedefazio/Documenti/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot
   number: 0
   build: beta
   preserve_egg_dir: True
@@ -20,15 +22,16 @@ requirements:
 #    - python ==3.7
   run:
     - python ==3.7
-    - numpy ==1.18.1
-    - numba ==0.51.2
-    - wget
-    - pandas ==1.0.4
+    - numpy >=1.18.1
+    - numba >=0.51.2
+    - python-wget
+    - pandas >=1.0.4
     - mmh3
-    - bitarray ==1.2.1
-    - h5py ==2.9.0
-    - hdf5 ==1.10.4
-    - argcomplete ==1.11.1
+    - bitarray >=1.2.1
+    - h5py >=2.9.0
+    - hdf5 >=1.10.4
+    - argcomplete >=1.11.1
+    - pytables >=3.6.1
 
 #requirements:
 #  build:
