@@ -61,7 +61,7 @@ requirements:
 
 test:
   command:
-    - kMetaShot_test.py
+    - kMetaShot_classifier_NV.py --help
 
 
 
