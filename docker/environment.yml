@@ -1,0 +1,7 @@
+name: env
+channels:
+   - gdefazio
+   - conda-forge
+dependencies:
+   - python=3.7
+   - kmetashot
