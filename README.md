@@ -63,31 +63,4 @@ kmetashot is also available as Docker container:
 ```
 docker run -it ibiomcnr/kmetashot kMetaShot_classifier_NV.py --help 
 
-                           ################################################
-                           #        kMetaShot Classifier Algorithm        #
-                           #                  Version 1.0                 #
-                           #               Defazio G. et al.              #
-                           ################################################
-
-usage: kMetaShot_classifier_NV.py [-h] -b BINS_DIR -r REFERENCE [-a ASS2REF]
-                                  -p PROCESSES [-o OUT_DIR]
-
-kMetaShot is able to taxonomically classiy bins/MAGs and long reads by using
-an alignment free and k-mer/minimizer based approach.
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -b BINS_DIR, --bins_dir BINS_DIR
-                        Path to directory containing bins or path to multi-
-                        fasta file
-  -r REFERENCE, --reference REFERENCE
-                        Path to HDF5 file containing reference
-  -a ASS2REF, --ass2ref ASS2REF
-                        Classification filtering based on ass2ref parameter
-                        ranging between 0 and 1. Default 0.
-  -p PROCESSES, --processes PROCESSES
-                        Multiprocess parallelism. Warning: high parallelism
-                        <==> high RAM usage
-  -o OUT_DIR, --out_dir OUT_DIR
-                        Output file path name
 ```

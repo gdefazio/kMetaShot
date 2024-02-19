@@ -13,13 +13,15 @@ build:
   build: beta
   preserve_egg_dir: True
 
+channels:
+  - conda-forge
+
 requirements:
   host:
     - python ==3.7
     - pip
     - setuptools
-#  build:
-#    - python ==3.7
+
   run:
     - python ==3.7
     - numpy >=1.18.1
@@ -32,32 +34,6 @@ requirements:
     - hdf5 >=1.10.4
     - argcomplete >=1.11.1
     - pytables >=3.6.1
-
-#requirements:
-#  build:
-#    - python >=3.7
-#    - setuptools
-#    - numpy >=1.18.1
-#    - numba >=0.51.2
-#    - wget
-#    - pandas
-#    - mmh3
-#    - bitarray
-#    - h5py
-#    - hdf5
-#    - argcomplete
-#
-#  run:
-#    - python >=3.7
-#    - numpy >=1.18.1
-#    - numba >=0.51.2
-#    - wget
-#    - pandas
-#    - mmh3
-#    - bitarray
-#    - h5py
-#    - hdf5
-#    - argcomplete
 
 test:
   command:
