@@ -5,7 +5,9 @@ import h5py
 import argparse
 import warnings
 import argcomplete
+import numpy as np
 import pandas as pd
+from multiprocessing import shared_memory
 import multiprocessing as mp
 from sys import exit as syexit
 from gzip import open as gzopen
@@ -142,11 +144,17 @@ def reference_importer():
     assum.drop_duplicates(inplace=True)
     return_time('Reference loading ...')
     reference = h5py.File(reference_path, 'r')
-    taxid = reference['taxid'][...]
+    taxid_array = reference['taxid'][...]
+    shared_mem_ptr = shared_memory.SharedMemory(create=True, size=taxid_array.nbytes)
+    taxid = np.ndarray(taxid_array.shape,
+                         dtype=taxid_array.dtype,
+                         buffer=shared_mem_ptr.buf)
+    taxid[:] = taxid_array[:]
+    del taxid_array
     count2taxidref = pd.read_hdf(reference_path, mode='r', key='count2taxidref')
     return_time('Reference loading DONE')
     reference.close()
-    return taxid, assum, count2taxidref
+    return shared_mem_ptr, taxid, assum, count2taxidref
 
 
 def single_thread_main(path: str):
@@ -240,7 +248,7 @@ if __name__ == '__main__':
     print("")
     print("                           ################################################")
     print("                           #        kMetaShot Classifier Algorithm        #")
-    print("                           #                  Version 1.0                 #")
+    print("                           #                  Version 2.0                 #")
     print("                           #               Defazio G. et al.              #")
     print("                           ################################################")
     print("")
@@ -260,7 +268,8 @@ if __name__ == '__main__':
         os.makedirs(out_dir_deep)
     except FileExistsError:
         print("The %s already exists" % out_dir_deep)
-    taxid, assum, count2taxidref = reference_importer()
+
+    shared_mem_ptr, taxid, assum, count2taxidref = reference_importer()
     if os.path.exists(out_file):
         if ass2ref_filter != 0:
             classific = pd.read_csv(out_file, index_col=0)
@@ -317,5 +326,7 @@ if __name__ == '__main__':
             classific.to_csv(os.path.join(out_dir,
                                           'kMetaShot_classification_resume_a2r%s.csv' %
                                           round(ass2ref_filter * 100)))
+    shared_mem_ptr.close()
+    shared_mem_ptr.unlink()
     return_time('Assignment of bins sequences DONE')
     syexit()
