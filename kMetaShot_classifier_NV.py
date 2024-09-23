@@ -293,7 +293,7 @@ if __name__ == '__main__':
         with mp.Pool(processes=processes, maxtasksperchild=1) as pcs:
             err = pcs.map(single_thread_main,
                           iterable=todo,
-                          chunksize=len(todo)//processes)
+                          chunksize=1)
         pcs.join()
         pcs.close()
         # print(err)

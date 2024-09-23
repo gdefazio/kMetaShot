@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='kmetashot',
-    version='1.0.1',
+    version='2.0',
     url='/home/giuseppedefazio/Documenti/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot',
     scripts=[
         '/home/giuseppedefazio/Documenti/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot/kMetaShot_classifier_NV.py',

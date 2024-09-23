@@ -206,13 +206,13 @@ class FastaReference(SequenceFile):
             iter_exe = (self.counter_kmer(s, kmer_len) for s in self.sequences\
                         if len(s) >= kmer_len*2)
             dt = np.dtype([('kmer', np.uint32()),
-                           ('occurr', np.uint8())])
+                           ('occurr', np.uint16())])
         else:
             # SI MINIMIZER
             iter_exe = (self.counter_kmer_minimizer((s, kmer_len, minimizer))
                         for s in self.sequences if len(s) >= kmer_len*2)
             dt = np.dtype([('kmer', np.uint32()),
-                           ('occurr', np.uint8())])
+                           ('occurr', np.uint16())])
         try:
             hashtable = dict()
             for seq_res in iter_exe:
