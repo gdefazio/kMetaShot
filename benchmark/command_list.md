@@ -48,11 +48,12 @@ rsync --list-only rsync://ftp.ncbi.nlm.nih.gov/genomes/HUMAN_MICROBIOM/Bacteria/
 Then, a composition file was prepared:
 ```python
 import pandas as pd
+import numpy as np
 import os
 
 def df_gen():
     for f in os.listdir('./all_rpt'):
-        for f1 in os.path.join('./all_rpt',f):
+        for f1 in os.listdir(os.path.join('./all_rpt',f)):
             if f1.endswith('.rpt'):
                 a = pd.read_csv(os.path.join('./all_rpt',f ,f1), 
                                 sep=r'[:=] ', 
@@ -71,12 +72,61 @@ assembly_summary = pd.concat(df_gen(), axis=0)
 columns = [a.strip().replace(' ','_') for a in assembly_summary.columns]
 columns[3] = 'taxid'
 assembly_summary.columns = columns
+assembly_summary.local_path = assembly_summary.local_path.apply(lambda x: "/%s" % os.path.join(*x.split('/')[:-1]))
 assembly_summary.to_csv('./assembly_summary_HMP.csv')
 assum = assembly_summary[['taxid','Taxname','local_path']].drop_duplicates()
 kassum = pd.read_hdf('kMetaShot_reference.h5','new_assemblysummary')
 kassum = kassum[ranks].drop_duplicates()
-final = assum.merge(kassum, on='taxid')
-final.to_csv('./HMP_composition_fullpath.csv')
+assum= assum.astype({'taxid':np.int64})
+merged = pd.read_csv('/home3/gdefazio/kMetaShot_reference_11_06_24/NCBI_taxonomy/from_tar/merged.dmp', sep='|', header=None)
+merged = merged[[0,1]]
+merged_taxids = list()
+for el in assum.taxid:
+    try:
+        ans = merged.loc[merged[0] == el, 1].iloc[0]
+        merged_taxids.append(ans)
+    except IndexError:
+        merged_taxids.append(el)
+assum.taxid = merged_taxids
+final = assum.merge(kassum, on='taxid', how='left')
+final_na = final[final.species.isna()]
+taxidlineage = pd.read_csv('/home3/gdefazio/kMetaShot_reference_11_06_24/NCBI_taxonomy/from_tar/taxidlineage.dmp',
+                           sep='|')
+taxidlineage.columns = ['node', 'path', 'trash']
+taxidlineage = taxidlineage[['node', 'path']]
+na_paths = taxidlineage[taxidlineage.node.isin(final_na.taxid)]
+nodes = pd.read_pickle('/home3/gdefazio/kMetaShot_reference_11_06_24/NCBI_taxonomy/pandanized/nodes.pkl')
+na_paths_adj = pd.concat(
+    na_paths.path.apply(
+        lambda x: pd.DataFrame([
+            {nodes.loc[nodes.node == int(el),'rank'].iloc[0]: int(el) 
+             for el in x.strip().split(' ')[1:] if nodes.loc[nodes.node == int(el),'rank'].iloc[0] in ranks}])
+    ).to_list(), axis=0)
+na_paths_adj['taxid'] = na_paths.node.to_list()
+
+for n in na_paths_adj.columns:
+    na_paths_adj[n].replace(np.NaN, 0,inplace=True)
+
+na_paths_adj.loc[na_paths_adj.species == 0,'species'] =  na_paths_adj.loc[
+    na_paths_adj.species == 0,'taxid'].to_list()
+
+na_paths_adj.reset_index(drop=True, inplace=True)
+
+na_paths_adj.loc[na_paths_adj['class'] == 0,'class'] =  na_paths_adj.loc[
+    na_paths_adj['class'] == 0,'phylum'].to_list()
+
+na_paths_adj.loc[na_paths_adj.order == 0,'order'] =  na_paths_adj.loc[
+    na_paths_adj.order == 0,'class'].to_list()
+
+na_paths_adj.loc[na_paths_adj.family == 0,'family'] =  na_paths_adj.loc[
+    na_paths_adj.family == 0,'order'].to_list()
+
+na_paths_adj.loc[na_paths_adj.genus == 0,'genus'] =  na_paths_adj.loc[
+    na_paths_adj.genus == 0,'family'].to_list()
+
+kassum1 = pd.concat([kassum, na_paths_adj], axis=0)
+final = assum.merge(kassum1, on='taxid', how='left')
+final.to_csv('./HMP_composition_fullpath.csv')  
 ```
 
 
