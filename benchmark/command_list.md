@@ -78,7 +78,7 @@ assum = assembly_summary[['taxid','Taxname','local_path']].drop_duplicates()
 kassum = pd.read_hdf('kMetaShot_reference.h5','new_assemblysummary')
 kassum = kassum[ranks].drop_duplicates()
 assum= assum.astype({'taxid':np.int64})
-merged = pd.read_csv('/home3/gdefazio/kMetaShot_reference_11_06_24/NCBI_taxonomy/from_tar/merged.dmp', sep='|', header=None)
+merged = pd.read_csv('~/NCBI_taxonomy/from_tar/merged.dmp', sep='|', header=None)
 merged = merged[[0,1]]
 merged_taxids = list()
 for el in assum.taxid:
@@ -90,12 +90,12 @@ for el in assum.taxid:
 assum.taxid = merged_taxids
 final = assum.merge(kassum, on='taxid', how='left')
 final_na = final[final.species.isna()]
-taxidlineage = pd.read_csv('/home3/gdefazio/kMetaShot_reference_11_06_24/NCBI_taxonomy/from_tar/taxidlineage.dmp',
+taxidlineage = pd.read_csv('~/NCBI_taxonomy/from_tar/taxidlineage.dmp',
                            sep='|')
 taxidlineage.columns = ['node', 'path', 'trash']
 taxidlineage = taxidlineage[['node', 'path']]
 na_paths = taxidlineage[taxidlineage.node.isin(final_na.taxid)]
-nodes = pd.read_pickle('/home3/gdefazio/kMetaShot_reference_11_06_24/NCBI_taxonomy/pandanized/nodes.pkl')
+nodes = pd.read_pickle('~/NCBI_taxonomy/pandanized/nodes.pkl')
 na_paths_adj = pd.concat(
     na_paths.path.apply(
         lambda x: pd.DataFrame([
