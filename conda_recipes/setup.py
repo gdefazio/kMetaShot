@@ -3,10 +3,10 @@ from setuptools import setup, find_packages
 setup(
     name='kmetashot',
     version='2.0',
-    url='/home/giuseppedefazio/Documenti/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot',
+    url='/Users/giuseppedefazio/Documents/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot',
     scripts=[
-        '/home/giuseppedefazio/Documenti/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot/kMetaShot_classifier_NV.py',
-        '/home/giuseppedefazio/Documenti/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot/kMetaShot_test.py'],
+        '/Users/giuseppedefazio/Documents/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot/kMetaShot_classifier_NV.py',
+        '/Users/giuseppedefazio/Documents/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot/kMetaShot_test.py'],
     packages=['kMetaShot_package'],
     # install_requires=['numpy==1.18.1',
     #                   'numba==0.51.2',

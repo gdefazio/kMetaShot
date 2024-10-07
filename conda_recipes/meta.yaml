@@ -4,14 +4,15 @@ package:
 
 source:
 #   git_url: https://github.com/gdefazio/kMetaShot
-  path: /home/giuseppedefazio/Documenti/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot
+  path: /Users/giuseppedefazio/Documents/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot
 
 build:
-  script: python /home/giuseppedefazio/Documenti/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot/conda_recipes/setup.py install
+  noarch: python
+  script: python /Users/giuseppedefazio/Documents/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot/conda_recipes/setup.py install
 #  script: python -m pip install --no-deps --ignore-installed /home/giuseppedefazio/Documenti/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot
-  number: 0
-  build: beta
-  preserve_egg_dir: True
+  #number: 0
+  #build: beta
+  #preserve_egg_dir: True
 
 channels:
   - conda-forge
@@ -23,10 +24,9 @@ requirements:
     - setuptools
 
   run:
-    - python >=3.7
+    - python >=3.8
     - numpy >=1.18.1
     - numba >=0.51.2
-    - python-wget
     - pandas >=1.0.4
     - mmh3
     - bitarray >=1.2.1

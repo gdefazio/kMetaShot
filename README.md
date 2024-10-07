@@ -55,7 +55,9 @@ Arguments:
                         Output directory
   -a , --ass2ref (float)
                         Classification filtering based on ass2ref parameter ranging
-                        between 0 and 1. Default 0.
+                        between 0 and 1. Default 0. 
+                        ass2ref is a ratio between the number of MAG minimizers
+                        and the reference minimizers related to the assigned strain
 ```
 
 kmetashot is also available as Docker container:

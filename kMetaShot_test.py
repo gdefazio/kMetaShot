@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import os
-import wget
 import argparse
 import argcomplete
 import pandas as pd
@@ -23,10 +22,12 @@ if __name__ == '__main__':
     arguments = split_options()
     os.mkdir('bins')
     # download genomes to test
-    wget.download(url='https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/016/921/115/GCF_016921115.1_ASM1692111v1/GCF_016921115.1_ASM1692111v1_genomic.fna.gz',
-                  out='./bins/GCF_016921115.1_ASM1692111v1_genomic.fna.gz')
-    wget.download(url='https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/002/287/175/GCF_002287175.1_ASM228717v1/GCF_002287175.1_ASM228717v1_genomic.fna.gz',
-                  out='./bins/GCF_002287175.1_ASM228717v1_genomic.fna.gz')
+    sp.run(args=['wget',
+    'https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/016/921/115/GCF_016921115.1_ASM1692111v1/GCF_016921115.1_ASM1692111v1_genomic.fna.gz',
+    '-O','./bins/GCF_016921115.1_ASM1692111v1_genomic.fna.gz'])
+    sp.run(args=['wget',
+                 'https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/002/287/175/GCF_002287175.1_ASM228717v1/GCF_002287175.1_ASM228717v1_genomic.fna.gz',
+                  '-O','./bins/GCF_002287175.1_ASM228717v1_genomic.fna.gz'])
     # bins classification test
     sp.run(args=['kMetaShot_classifier_NV.py',
                  '-b', './bins/',
