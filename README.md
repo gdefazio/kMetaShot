@@ -4,7 +4,8 @@ kMetaShot
 # Table of content
 1. [Introduction](#introduction)  
 2. [Install](#install)  
-3. [Usage](#usage)  
+3. [Usage](#usage) 
+4. [Citation](#citation)
 
 
 # INTRODUCTION
@@ -66,3 +67,9 @@ kmetashot is also available as Docker container:
 docker run -it ibiomcnr/kmetashot kMetaShot_classifier_NV.py --help 
 
 ```
+
+# Citation
+Giuseppe Defazio, Marco Antonio Tangaro, Graziano Pesole, Bruno Fosso</br>
+**kMetaShot: a fast and reliable taxonomy classifier for metagenome-assembled genomes**</br>
+Briefings in Bioinformatics, Volume 26, Issue 1, January 2025, bbae680</br>
+https://doi.org/10.1093/bib/bbae680
