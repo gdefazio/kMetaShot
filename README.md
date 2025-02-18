@@ -46,7 +46,8 @@ Arguments:
   -b , --bins_dir (char)
                         Path to a directory containing bins fasta files or 
                         path to a multi-fasta file where each header corresponds
-                        to a bin/MAG
+                        to a bin/MAG. Files can have .fa, .fasta, .fna, .fa.gz,
+                        .fasta.gz, .fna.gz extentions.
   -r , --reference (char)
                         Path to HDF5 kMetaShot reference
   -p , --processes (int)
