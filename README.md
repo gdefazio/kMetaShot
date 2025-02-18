@@ -54,7 +54,7 @@ Arguments:
                         Number of child processes for a Multiprocess parallelism. 
                         Warning: high parallelism <==> high RAM usage
   -o , --out_dir (char)
-                        Output directory
+                        Output directory path
   -a , --ass2ref (float)
                         Classification filtering based on ass2ref parameter ranging
                         between 0 and 1. Default 0. 
