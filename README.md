@@ -22,11 +22,9 @@ To activate the environment:
 conda activate kmetashot
 ```
 
-kMetaShot requires a reference file available at this [link](http://srv00.recas.ba.infn.it/webshare/brunofosso/kMetaShot_reference.h5). It requires about 22Gb of storage.  
-To download it you can simply use `wget`:
-```
-wget http://srv00.recas.ba.infn.it/webshare/brunofosso/kMetaShot_reference.h5
-```
+kMetaShot requires a reference file available at this [link](https://unibari-my.sharepoint.com/:u:/g/personal/giuseppe_defazio_uniba_it/EZRj8A9QzHBCpAfvncka83ABJxVx06gkqhCZg1x1iaLyWw?e=YRRAae). It requires about 22Gb of storage.  
+
+
 Before to use kMetaShot you may test the installation typing the following line:
 
 ```
