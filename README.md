@@ -70,6 +70,10 @@ kmetashot is also available as Docker container:
 docker run -it ibiomcnr/kmetashot kMetaShot_classifier_NV.py --help 
 
 ```
+# Galaxy
+kMetaShot can be also used by employing a Galaxy instance available at the following</br>
+link:</br>
+http://212.189.202.40.cloud.ba.infn.it/galaxy/?tool_id=kmetashot_pipeline&version=latest
 
 # Citation
 Giuseppe Defazio, Marco Antonio Tangaro, Graziano Pesole, Bruno Fosso</br>
