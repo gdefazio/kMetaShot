@@ -3,12 +3,12 @@ package:
   version: "2.0"
 
 source:
-#   git_url: https://github.com/gdefazio/kMetaShot
-  path: /Users/giuseppedefazio/Documents/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot
+  git_url: https://github.com/gdefazio/kMetaShot
+  # path: /Users/giuseppedefazio/Documents/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot
 
 build:
   noarch: python
-  script: python /Users/giuseppedefazio/Documents/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot/conda_recipes/setup.py install
+  script: python ./conda_recipes/setup.py install
 #  script: python -m pip install --no-deps --ignore-installed /home/giuseppedefazio/Documenti/kMetaShot_HQ_paper/kMetaShot_github/kMetaShot
   #number: 0
   #build: beta
@@ -34,6 +34,7 @@ requirements:
     - hdf5 >=1.10.4
     - argcomplete >=1.11.1
     - pytables >=3.6.1
+    - setuptools
 
 test:
   command:
