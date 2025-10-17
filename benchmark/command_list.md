@@ -1,9 +1,9 @@
 # Command list for kMetaShot benchmark
 
 ## Outline
-1.[Benchmark on HMP genomes](###Benchmark on HMP genomes)
-2.[Benchmark on SRR606249 mock](###Benchmark on SRR606249 mock)
-3.[Benchmark on CAMI II data](###Benchmark on CAMI II data)
+1. [Benchmark on HMP genomes](###Benchmark_on_HMP_genomes)
+2. [Benchmark on SRR606249 mock](###Benchmark_on_SRR606249_mock)
+3. [Benchmark on CAMI II data](###Benchmark_on_CAMI_II_data)
 
 ### Benchmark on HMP genomes
 
