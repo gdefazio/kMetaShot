@@ -23,8 +23,8 @@ conda activate kmetashot
 ```
 ## kMetaShot Reference
 kMetaShot requires a reference file available at these links: 
-[2nd kMetaShot reference release](http://10.5281/zenodo.17375120) (RefSeq 2025/05/22)
-[1st kMetaShot reference release](http://srv00.recas.ba.infn.it/webshare/brunofosso/kMetaShot_reference.h5) (RefSeq 2022/07/31)
+1. [2nd kMetaShot reference release](http://10.5281/zenodo.17375120) (RefSeq 2025/05/22)
+2. [1st kMetaShot reference release](http://srv00.recas.ba.infn.it/webshare/brunofosso/kMetaShot_reference.h5) (RefSeq 2022/07/31)
 
 kMetaShot reference represents prokaryotic RefSeq genomes and requires about 22Gb of storage.
 
