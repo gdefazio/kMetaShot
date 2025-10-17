@@ -21,19 +21,20 @@ To activate the environment:
 ```
 conda activate kmetashot
 ```
+## kMetaShot Reference
+kMetaShot requires a reference file available at these links: 
+[2nd kMetaShot reference release](http://10.5281/zenodo.17375120) (RefSeq 2025/05/22)
+[1st kMetaShot reference release](http://srv00.recas.ba.infn.it/webshare/brunofosso/kMetaShot_reference.h5) (RefSeq 2022/07/31)
 
-kMetaShot requires a reference file available at this [link](http://srv00.recas.ba.infn.it/webshare/brunofosso/kMetaShot_reference.h5). It requires about 22Gb of storage.
-It can be used also the following command:
-```
-wget http://srv00.recas.ba.infn.it/webshare/brunofosso/kMetaShot_reference.h5
-```
+kMetaShot reference represents prokaryotic RefSeq genomes and requires about 22Gb of storage.
 
-
+## Test
 Before to use kMetaShot you may test the installation typing the following line:
 
 ```
 kMetaShot_test.py -r /path/to/kMetaShot_reference.h5
 ```
+
 # USAGE
 ```
 kMetaShot_classifier_NV.py 
