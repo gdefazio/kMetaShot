@@ -15,7 +15,7 @@ In order to obtain a fast e reliable taxonomic classification of microorganisms 
 # INSTALL
 kMetaShot is available through **conda**. To install it type the following line:  
 ```
- conda create --name kmetashot kmetashot=2.0=py_0 -c conda-forge -c gdefazio
+ conda create --name kmetashot kmetashot=2.0=pyh7e72e81_1 -c bioconda
 ```
 To activate the environment:
 ```
