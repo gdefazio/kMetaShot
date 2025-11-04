@@ -68,7 +68,7 @@ Arguments:
 kmetashot is also available as Docker container:
 
 ```
-docker run -it ibiomcnr/kmetashot kMetaShot_classifier_NV.py --help 
+docker run -it quay.io/biocontainers/kmetashot kMetaShot_classifier_NV.py --help 
 
 ```
 # Galaxy
