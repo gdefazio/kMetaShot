@@ -1,7 +1,7 @@
 kMetaShot
 =========
-[![Python](https://anaconda.org/bioconda/kmetashot/badges/downloads.svg)](https://anaconda.org/bioconda/kmetashot/badges)
- 
+[![Anaconda-Server Badge](https://anaconda.org/bioconda/kmetashot/badges/downloads.svg)](https://anaconda.org/bioconda/kmetashot)
+
 # Table of content
 1. [Introduction](#introduction)  
 2. [Install](#install)  
