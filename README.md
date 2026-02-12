@@ -24,8 +24,8 @@ conda activate kmetashot
 ```
 ## kMetaShot Reference
 kMetaShot requires a reference file available at these links: 
-1. [2nd kMetaShot reference release](http://10.5281/zenodo.17375120) (RefSeq 2025/05/22)
-2. [1st kMetaShot reference release](https://zenodo.org/records/17591095) (RefSeq 2022/07/31)
+1. [2nd kMetaShot reference release](https://huggingface.co/datasets/gdefazio/kMetaShot_reference_bacteria_archaea/resolve/main/kMetaShot_bacteria_archaea_2025-05-22.h5) (RefSeq 2025/05/22)
+2. [1st kMetaShot reference release](https://huggingface.co/datasets/gdefazio/kMetaShot_reference_bacteria_archaea/resolve/main/kMetaShot_reference.h5) (RefSeq 2022/07/31)
 
 kMetaShot reference represents prokaryotic RefSeq genomes and requires about 22Gb of storage.
 
@@ -66,14 +66,14 @@ Arguments:
                         and the reference minimizers related to the assigned strain
 ```
 
-kmetashot is also available as Docker container:
+kmetashot is also available as Docker container. It needs `--shm-size=22g` to properly run as docker container.
 
 ```
 docker run -it quay.io/biocontainers/kmetashot kMetaShot_classifier_NV.py --help 
 
 ```
 # Galaxy
-kMetaShot can be also used by employing a Galaxy instance available at the following</br>
+kMetaShot can be also used with a Galaxy instance available at the following</br>
 link:</br>
 http://212.189.205.125/galaxy/?tool_id=kmetashot&version=latest
 
