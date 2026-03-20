@@ -14,7 +14,7 @@ The application of 2nd and 3rd generation High Throughput Sequencing (HTS) techn
 In order to obtain a fast e reliable taxonomic classification of microorganisms genomes we present **kMetaShot**, an alignment-free taxonomic classifier based on k-mer/minimizer counting.
 
 # INSTALL
-kMetaShot is available through **conda**. To install it type the following line:  
+kMetaShot is available through **conda** in _bioconda_ channel. To install it type the following line:  
 ```
  conda create --name kmetashot kmetashot=2.0=pyh7e72e81_1 -c bioconda
 ```
@@ -23,7 +23,11 @@ To activate the environment:
 conda activate kmetashot
 ```
 ## kMetaShot Reference
-kMetaShot requires a reference file available at these links: 
+kMetaShot requires a reference file available at these Zenodo links: 
+1. [2nd kMetaShot reference release](https://zenodo.org/records/17375120/files/kMetaShot_bacteria_archaea_2025-05-22.h5) (RefSeq 2025/05/22)
+2. [1st kMetaShot reference release](https://zenodo.org/records/17591095/files/kMetaShot_reference.h5) (RefSeq 2022/07/31)
+
+**NEW** kMetaShot reference can be downloaded also from Huggingface in a faster way:
 1. [2nd kMetaShot reference release](https://huggingface.co/datasets/gdefazio/kMetaShot_reference_bacteria_archaea/resolve/main/kMetaShot_bacteria_archaea_2025-05-22.h5) (RefSeq 2025/05/22)
 2. [1st kMetaShot reference release](https://huggingface.co/datasets/gdefazio/kMetaShot_reference_bacteria_archaea/resolve/main/kMetaShot_reference.h5) (RefSeq 2022/07/31)
 
@@ -37,6 +41,7 @@ kMetaShot_test.py -r /path/to/kMetaShot_reference.h5
 ```
 
 # USAGE
+This is the kMetaShot usage.
 ```
 kMetaShot_classifier_NV.py 
                 -b bins/
@@ -66,13 +71,16 @@ Arguments:
                         and the reference minimizers related to the assigned strain
 ```
 
-kmetashot is also available as Docker container. It needs `--shm-size=22g` to properly run as docker container.
+kMetaShot is also available as Docker container. It needs `--shm-size=22g` option to properly run as docker container.
 
 ```
 docker run -it quay.io/biocontainers/kmetashot kMetaShot_classifier_NV.py --help 
 
 ```
-# Galaxy
+# kMetaShot as Galaxy tool
+kMetaShot has been recently deployed as Galaxy tool in http://usegalaxy.eu server. You can freely 
+and easily use it at https://usegalaxy.eu/root?tool_id=toolshed.g2.bx.psu.edu/repos/bgruening/kmetashot/kmetashot/2.0+galaxy2.</br>
+</br>
 kMetaShot can be also used with a Galaxy instance available at the following</br>
 link:</br>
 http://212.189.205.125/galaxy/?tool_id=kmetashot&version=latest
