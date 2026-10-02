@@ -28,8 +28,9 @@ kMetaShot requires a reference file available at these Zenodo links:
 2. [1st kMetaShot reference release](https://zenodo.org/records/17591095/files/kMetaShot_reference.h5) (RefSeq 2022/07/31)
 
 **NEW** kMetaShot reference can be downloaded also from Huggingface in a faster way:
-1. [2nd kMetaShot reference release](https://huggingface.co/datasets/gdefazio/kMetaShot_reference_bacteria_archaea/resolve/main/kMetaShot_bacteria_archaea_2025-05-22.h5) (RefSeq 2025/05/22)
-2. [1st kMetaShot reference release](https://huggingface.co/datasets/gdefazio/kMetaShot_reference_bacteria_archaea/resolve/main/kMetaShot_reference.h5) (RefSeq 2022/07/31)
+1. [3rd kMetaShot reference release](https://huggingface.co/datasets/gdefazio/kMetaShot_reference_bacteria_archaea/blob/main/compressed_bacteria_archaea_2026-09-10.h5) (RefSeq 2026/09/10)
+2. [2nd kMetaShot reference release](https://huggingface.co/datasets/gdefazio/kMetaShot_reference_bacteria_archaea/resolve/main/kMetaShot_bacteria_archaea_2025-05-22.h5) (RefSeq 2025/05/22)
+3. [1st kMetaShot reference release](https://huggingface.co/datasets/gdefazio/kMetaShot_reference_bacteria_archaea/resolve/main/kMetaShot_reference.h5) (RefSeq 2022/07/31)
 
 kMetaShot reference represents prokaryotic RefSeq genomes and requires about 22Gb of storage.
 
